@@ -1,6 +1,6 @@
 # taxon
 
-`taxon` is a specification for terse type annotations used to document Javascript APIs.
+`taxon` is a concise type system for annotating and documenting Javascript APIs.
 
 ## Basics
 
@@ -12,6 +12,7 @@ real (3.0234)
 bool (true)
 string ('hello')
 none (undefined)
+void (undefined)
 null (null)
 nan (NaN)
 ```
@@ -41,13 +42,14 @@ true :: Maybe<bool> // true
 
 ### Application
 ```js
-:Class.myMethod: Function
-:Class.instance: Data
+[Class.myMethod]: Function
+[Class.instance]: Data
 ```
 ```js
-:Class
-	:myMethod: Function
-	:instance: Data
+[Class
+	[myMethod]: Function
+	[instance]: Data
+]
 ```
 
 ## Rules
@@ -55,6 +57,16 @@ true :: Maybe<bool> // true
 ### Functions
 ```js
 Adder: (augend: int, addend: int) => int
+```
+
+#### Optional Arguments
+```js
+Alert: (message: string, [type: string]) => void
+```
+
+#### Default Arguments
+```js
+Alert: (message: string, type = 'default': string) => void
 ```
 
 ### Objects
@@ -98,13 +110,15 @@ Node: Branch | Leaf
 Heap: Node<int>
 ```
 
+Algebraics cannot be used directly as applications.
+
 ### Substitution
 ```js
 Animal: { weight: int }
 Dog: { #Animal, color: string }
 ```
 ```js
-:View: (element: HTMLElement) => View
-:Model: (model: Shallow<Function>) => Model
-:ViewModel: (#View, #Model) => Construct
+[View]: (element: HTMLElement) => View
+[Model]: (model: Shallow<Function>) => Model
+[ViewModel]: (#View, #Model) => Construct
 ```
