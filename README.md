@@ -21,6 +21,7 @@ nan (NaN)
 ```js
 Array<Type>: [...values: Type]
 Shallow<Type>: { ...properties: Type }
+Monad<Type>: (arg: Type) => Type
 Maybe<Type>: Type | none
 Tuple<A, B, ..., Z>: [A, B, ..., Z]
 Of<A, B, ..., Z>: A | B | ... | Z
@@ -108,6 +109,9 @@ Leaf<Value>: Value
 Branch<Value>: { value: Value, (left, right): Maybe<Leaf<Value>> }
 Node: Branch | Leaf
 Heap: Node<int>
+```
+```js
+Thunk<Value>: Monad<Value> | Value
 ```
 
 Algebraics cannot be used directly as applications.
